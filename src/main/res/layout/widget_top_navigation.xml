@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vgTopNavigation"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="@dimen/default_space"
+    android:background="@color/colorNavigationBackground"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnNavigation"
+        android:src="@drawable/ic_arrow_back_white_24dp"
+        style="@style/ImgBtnNoInset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <!-- override this textAppearance in style TODO -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txtTitle"
+        android:layout_width="0dp"
+        android:padding="@dimen/default_space"
+        android:layout_marginStart="@dimen/min_space"
+        android:layout_marginEnd="@dimen/min_space"
+        android:layout_marginLeft="@dimen/min_space"
+        android:layout_marginRight="@dimen/min_space"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+
+    <!-- override this textAppearance in style TODO -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txtPageNumber"
+        android:gravity="center"
+        android:padding="@dimen/default_space"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+        android:textColor="@android:color/background_dark"
+        android:background="@drawable/bg_text_page_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</android.support.v7.widget.LinearLayoutCompat>

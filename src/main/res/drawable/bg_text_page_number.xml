@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/bg_text_page_number"
+          android:gravity="center" >
+        <shape android:shape="oval">
+            <size android:height="32dp"
+                  android:width="32dp" />
+            <solid android:color="@android:color/white" />
+            <padding android:left="@dimen/default_space"
+                     android:bottom="@dimen/default_space"
+                     android:top="@dimen/default_space"
+                     android:right="@dimen/default_space" />
+        </shape>
+    </item>
+</layer-list>

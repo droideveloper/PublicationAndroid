@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorNavigationBackground">#AA000000</color>
+
+    <!-- really rainbow style colors set for swipeRefreshLayout -->
+    <color name="colorBlueSwipeProgress">#0099CC</color>
+    <color name="colorPurpleSwipeProgress">#9933CC</color>
+    <color name="colorGreenSwipeProgress">#669900</color>
+    <color name="colorOrangeSwipeProgress">#FF8800</color>
+</resources>

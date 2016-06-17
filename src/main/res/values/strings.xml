@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">PublicationLibrary</string>
+    <string name="content_loading">Content is loading…</string>
+
+    <string name="downloaded_format">Progress: %d</string>
+    <string name="date_format">dd MMM, yyyy</string>
+
+    <string name="btn_read">read</string>
+    <string name="btn_cancel">cancel</string>
+    <string name="btn_download">download</string>
+    <string name="btn_delete">delete</string>
+
+    <string name="download_manager_error_unknown">There is an unknown error occurred while downloading.</string>
+    <string name="download_manager_error_storage">There is not enough space to download this book, change configuration settings.</string>
+    <string name="download_manager_error_network">Required type of network connection is not meeting right value at the moment, we will try to download it later.</string>
+    <string name="download_manager_error_cancel">Cancelled by user action.</string>
+</resources>
