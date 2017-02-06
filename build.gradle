@@ -34,10 +34,6 @@ dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
   compile project(":core")
-  compile project(":evoke") //this library included :core already
-
-  testCompile 'junit:junit:4.12'
-
 
   apt 'com.google.dagger:dagger-compiler:2.7'
   compile 'com.google.dagger:dagger:2.7'
