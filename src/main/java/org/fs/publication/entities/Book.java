@@ -1,136 +1,144 @@
+/*
+ * Publication Copyright (C) 2017 Fatih.
+ *  
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.fs.publication.entities;
 
 import android.os.Parcel;
-
-import org.fs.core.AbstractApplication;
-import org.fs.core.AbstractEntity;
-import org.fs.util.StringUtility;
-
 import java.util.Date;
+import org.fs.core.AbstractEntity;
+import org.fs.publication.BuildConfig;
+import org.fs.util.Objects;
 
-/**
- * Created by Fatih on 05/06/16.
- * as org.fs.publication.entities.Book
- */
 public final class Book extends AbstractEntity {
 
-    private String name;
-    private String title;
-    private String info;
-    private Date   date;
-    private String cover;
-    private String url;
+  private String name;
+  private String title;
+  private String info;
+  private Date   date;
+  private String cover;
+  private String uri;
 
-    /*GSON needs this*/
-    public Book() { }
-    public Book(Parcel input) {
-        super(input);
+  public Book() {/*default constructor*/}
+  private Book(Parcel input) {
+    super(input);
+  }
+
+  public String name() {
+    return name;
+  }
+
+  public String title() {
+    return title;
+  }
+
+  public String info() {
+    return info;
+  }
+
+  public Date date() {
+    return date;
+  }
+
+  public String cover() {
+    return cover;
+  }
+
+  public String uri() {
+    return uri;
+  }
+
+  @Override protected void readParcel(Parcel input) {
+    boolean hasName = input.readInt() == 1;
+    if (hasName) {
+      name = input.readString();
+    }
+    boolean hasTitle = input.readInt() == 1;
+    if (hasTitle) {
+      title = input.readString();
+    }
+    boolean hasInfo = input.readInt() == 1;
+    if (hasInfo) {
+      info = input.readString();
+    }
+    boolean hasDate = input.readInt() == 1;
+    if (hasDate) {
+      date = new Date(input.readLong());
+    }
+    boolean hasCover = input.readInt() == 1;
+    if (hasCover) {
+      cover = input.readString();
+    }
+    boolean hasUri = input.readInt() == 1;
+    if (hasUri) {
+      uri = input.readString();
+    }
+  }
+
+  @Override public void writeToParcel(Parcel out, int flags) {
+    boolean hasName = !Objects.isNullOrEmpty(name);
+    out.writeInt(hasName ? 1 : 0);
+    if (hasName) {
+      out.writeString(name);
+    }
+    boolean hasTitle = !Objects.isNullOrEmpty(title);
+    out.writeInt(hasTitle ? 1 : 0);
+    if (hasTitle) {
+      out.writeString(title);
+    }
+    boolean hasInfo = !Objects.isNullOrEmpty(info);
+    out.writeInt(hasInfo ? 1 : 0);
+    if (hasInfo) {
+      out.writeString(info);
+    }
+    boolean hasDate = !Objects.isNullOrEmpty(date);
+    out.writeInt(hasDate ? 1 : 0);
+    if (hasDate) {
+      out.writeLong(date.getTime());
+    }
+    boolean hasCover = !Objects.isNullOrEmpty(cover);
+    out.writeInt(hasCover ? 1 : 0);
+    if (hasCover) {
+      out.writeString(cover);
+    }
+    boolean hasUri = !Objects.isNullOrEmpty(uri);
+    out.writeInt(hasUri ? 1 : 0);
+    if (hasUri) {
+      out.writeString(uri);
+    }
+  }
+
+  @Override protected String getClassTag() {
+    return Book.class.getSimpleName();
+  }
+
+  @Override protected boolean isLogEnabled() {
+    return BuildConfig.DEBUG;
+  }
+
+  @Override public int describeContents() {
+    return 0;
+  }
+
+  public final static Creator<Book> CREATOR = new Creator<Book>() {
+
+    @Override public Book createFromParcel(Parcel input) {
+      return new Book(input);
     }
 
-    public String getName() {
-        return name;
+    @Override public Book[] newArray(int size) {
+      return new Book[size];
     }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public String getCover() {
-        return cover;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    @Override protected void readParcel(Parcel input) {
-        boolean nameHasValue = input.readInt() == 1;
-        if(nameHasValue) {
-            name = input.readString();
-        }
-        boolean titleHasValue = input.readInt() == 1;
-        if(titleHasValue) {
-            title = input.readString();
-        }
-        boolean infoHasValue = input.readInt() == 1;
-        if(infoHasValue) {
-            info = input.readString();
-        }
-        boolean dateHasValue = input.readInt() == 1;
-        if (dateHasValue) {
-            date = new Date(input.readLong());
-        }
-        boolean coverHasValue = input.readInt() == 1;
-        if(coverHasValue) {
-            cover = input.readString();
-        }
-        boolean urlHasValue = input.readInt() == 1;
-        if(urlHasValue) {
-            url = input.readString();
-        }
-    }
-
-    @Override public void writeToParcel(Parcel out, int flags) {
-        boolean nameHasValue = !StringUtility.isNullOrEmpty(name);
-        out.writeInt(nameHasValue ? 1 : 0);
-        if(nameHasValue) {
-            out.writeString(name);
-        }
-        boolean titleHasValue = !StringUtility.isNullOrEmpty(title);
-        out.writeInt(titleHasValue ? 1 : 0);
-        if(titleHasValue) {
-            out.writeString(title);
-        }
-        boolean infoHasValue = !StringUtility.isNullOrEmpty(info);
-        out.writeInt(infoHasValue ? 1 : 0);
-        if(infoHasValue) {
-            out.writeString(info);
-        }
-        boolean dateHasValue = !StringUtility.isNullOrEmpty(date);
-        out.writeInt(dateHasValue ? 1 : 0);
-        if(dateHasValue) {
-            out.writeLong(date.getTime());
-        }
-        boolean coverHasValue = !StringUtility.isNullOrEmpty(cover);
-        out.writeInt(coverHasValue ? 1 : 0);
-        if(coverHasValue) {
-            out.writeString(cover);
-        }
-        boolean urlHasValue = !StringUtility.isNullOrEmpty(url);
-        out.writeInt(urlHasValue ? 1 : 0);
-        if(urlHasValue) {
-            out.writeString(url);
-        }
-    }
-
-    @Override public int describeContents() {
-        return 0;
-    }
-
-    public final static Creator<Book> CREATOR = new Creator<Book>() {
-
-        @Override public Book createFromParcel(Parcel input) {
-            return new Book(input);
-        }
-
-        @Override public Book[] newArray(int size) {
-            return new Book[size];
-        }
-    };
-
-    @Override protected String getClassTag() {
-        return Book.class.getSimpleName();
-    }
-
-    @Override protected boolean isLogEnabled() {
-        return AbstractApplication.isDebug();
-    }
+  };
 }

@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
 /*
  * Publication Copyright (C) 2017 Fatih.
- *
+ *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- -->
-<resources>
-  <style name="LibraryTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-  </style>
-</resources>
+package org.fs.publication.commons;
+
+import android.support.v4.view.ViewPager;
+
+public class SimplePageChangeListener implements ViewPager.OnPageChangeListener {
+
+  @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+  @Override public void onPageSelected(int position) {}
+  @Override public void onPageScrollStateChanged(int state) {}
+}

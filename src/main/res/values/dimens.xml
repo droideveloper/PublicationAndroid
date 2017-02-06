@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="default_space">5dp</dimen>
-    <dimen name="min_space">2dp</dimen>
-</resources>

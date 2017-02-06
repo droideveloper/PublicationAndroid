@@ -1,126 +1,44 @@
+/*
+ * Publication Copyright (C) 2017 Fatih.
+ *  
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.fs.publication.views;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.app.FragmentManager;
+import org.fs.common.IView;
+import org.fs.core.AbstractFragment;
+import org.fs.util.ObservableList;
 
-import org.fs.core.AbstractActivity;
-import org.fs.core.AbstractApplication;
-import org.fs.publication.PublicationApp;
-import org.fs.publication.R;
-import org.fs.publication.components.ActivityComponent;
-import org.fs.publication.components.AppComponent;
-import org.fs.publication.components.DaggerActivityComponent;
-import org.fs.publication.modules.ActivityModule;
-import org.fs.publication.presenters.IReadActivityPresenter;
-import org.fs.publication.presenters.ReadActivityPresenter;
+public interface ReadActivityView extends IView {
+  void setup();
 
-/**
- * Created by Fatih on 06/06/16.
- * as org.fs.publication.views.ReadActivityView
- */
-public class ReadActivityView extends AbstractActivity<IReadActivityPresenter> implements IReadActivityView {
+  void showProgress();
+  void hideProgress();
 
-    private ViewGroup           vgProgress;
-    private AppComponent        appComponent;
-    private ActivityComponent   activityComponent;
+  <V extends AbstractFragment<?>> void newView(@IdRes int layout, V view);
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_read_activity);
-    }
+  FragmentManager fragmentManager();
+  ObservableList<String> contents();
 
-    @Override protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        vgProgress = (ViewGroup) findViewById(R.id.vgProgress);
+  void hideNavigation();
+  void showNavigation();
 
-        presenter.restoreState(savedInstanceState != null ?  savedInstanceState  : getIntent().getExtras());
-        presenter.onCreate();
-    }
+  void setTitle(String titleStr);
 
-    @Override public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        presenter.storeState(outState);
-    }
+  boolean isDisplayNavigation();
 
-    @Override protected void onStart() {
-        super.onStart();
-        presenter.onStart();
-    }
-
-    @Override protected void onStop() {
-        presenter.onStop();
-        super.onStop();
-    }
-
-    @Override protected void onDestroy() {
-        presenter.onDestroy();
-        super.onDestroy();
-    }
-
-    @Override public View getContentView() {
-        return findViewById(android.R.id.content);
-    }
-
-    @Override public void showError(Snackbar snackbar) {
-        snackbar.show();
-    }
-
-    @Override public void hideError(Snackbar snackbar) {
-        snackbar.dismiss();
-    }
-
-    @Override public ActivityComponent getActivityComponent() {
-        if(activityComponent == null) {
-            activityComponent = DaggerActivityComponent.builder()
-                                                       .appComponent(getAppComponent())
-                                                       .activityModule(new ActivityModule(this))
-                                                       .build();
-        }
-        return activityComponent;
-    }
-
-    @Override public AppComponent getAppComponent() {
-        if(appComponent == null) {
-            appComponent = ((PublicationApp) getApplication()).getAppComponent();
-        }
-        return appComponent;
-    }
-
-    @Override protected IReadActivityPresenter presenter() {
-        return new ReadActivityPresenter(this);
-    }
-
-    @Override public void showProgress() {
-        vgProgress.setVisibility(View.VISIBLE);
-    }
-
-    @Override public void hideProgress() {
-        vgProgress.setVisibility(View.GONE);
-    }
-
-    @Override public void replace(@IdRes int viewId, Fragment fragment) {
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        trans.replace(viewId, fragment);
-        trans.commitAllowingStateLoss();
-    }
-
-    @Override public Context getContext() {
-        return this;
-    }
-
-    @Override protected String getClassTag() {
-        return ReadActivityView.class.getSimpleName();
-    }
-
-    @Override protected boolean isLogEnabled() {
-        return AbstractApplication.isDebug();
-    }
+  void showPageAt(int index);
+  int currentPageAt();
 }
