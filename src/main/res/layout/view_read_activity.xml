@@ -33,7 +33,23 @@
     android:minHeight="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content">
+
+    <org.fs.publication.widgets.PaginationTextView
+      android:id="@+id/pagination"
+      android:layout_gravity="end|center_vertical"
+      android:gravity="center"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:minWidth="36dp"
+      android:textColor="?attr/colorPrimary"
+      android:textSize="17sp"
+      android:textStyle="bold"
+      android:layout_margin="5dp"
+      android:padding="7dp"
+      android:background="@drawable/text_oval" />
+
+  </android.support.v7.widget.Toolbar>
 
   <FrameLayout
     android:id="@+id/navigation"

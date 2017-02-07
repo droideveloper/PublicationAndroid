@@ -31,6 +31,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import javax.inject.Inject;
 import org.fs.anim.FancyInterpolator;
 import org.fs.core.AbstractActivity;
@@ -53,6 +54,7 @@ public class ReadActivity extends AbstractActivity<ReadActivityPresenter>
   @Inject ContentStateAdapter   adapter;
 
   private Toolbar     toolbar;
+  private TextView    pagination;
   private ViewPager   viewPager;
   private FrameLayout layout;
   private ProgressBar progress;
@@ -65,6 +67,7 @@ public class ReadActivity extends AbstractActivity<ReadActivityPresenter>
     layout = ViewUtility.findViewById(this, R.id.navigation);
     viewPager = ViewUtility.findViewById(this, R.id.viewPager);
     progress = ViewUtility.findViewById(this, R.id.viewProgress);
+    pagination = ViewUtility.findViewById(this, R.id.pagination);
     //inject it this way
     DaggerActivityComponent.builder()
         .activityModule(new ActivityModule(this))
@@ -187,6 +190,18 @@ public class ReadActivity extends AbstractActivity<ReadActivityPresenter>
     progress.setVisibility(View.INVISIBLE);
     // show view
     viewPager.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void setPagination(int page) {
+    if (page < 0) {
+      pagination.setVisibility(View.INVISIBLE);
+    } else {
+      pagination.setText(String.valueOf(page));
+      int visibility = pagination.getVisibility();
+      if (visibility != View.VISIBLE) {
+        pagination.setVisibility(View.VISIBLE);
+      }
+    }
   }
 
   @Override public void showError(String errorString, String actionTextString,

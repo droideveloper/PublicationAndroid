@@ -34,6 +34,7 @@ public interface ReadActivityView extends IView {
   void showNavigation();
 
   void setTitle(String titleStr);
+  void setPagination(int page);
 
   boolean isDisplayNavigation();
 

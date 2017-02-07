@@ -125,9 +125,10 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
       }
     });
     // hide after 3000 ms if navigation visible
-    //if (!view.isDisplayNavigation()) {
-    //  delayedHide(LARGE_DELAY_TIME);
-    //}
+    if (!view.isDisplayNavigation()) {
+      delayedHide(LARGE_DELAY_TIME);
+    }
+    view.setPagination(pageIndex);
   }
 
   @Override public View.OnClickListener clickListener() {
@@ -150,6 +151,7 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
     return new SimplePageChangeListener() {
       @Override public void onPageSelected(int position) {
         if (view.isAvailable()) {
+          view.setPagination(position);
           BusManager.send(new PageSelectedByIndex(position));
         }
       }
