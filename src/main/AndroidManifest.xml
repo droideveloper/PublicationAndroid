@@ -6,16 +6,7 @@
 
     <activity
       android:name=".views.ReadActivity"
-      android:screenOrientation="portrait">
-
-      <intent-filter>
-
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="org.fs.category.READ_MAGAZINE" />
-
-      </intent-filter>
-
-    </activity>
+      android:screenOrientation="portrait" />
 
   </application>
 

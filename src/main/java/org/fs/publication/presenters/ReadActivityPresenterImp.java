@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import java8.util.stream.Collectors;
 import java8.util.stream.StreamSupport;
@@ -49,6 +48,7 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
   private final static String INDEX_FILE2 = "index.htm";
 
   private final static long DEFAULT_DELAY_TIME = 500L;
+  private final static long LARGE_DELAY_TIME   = 3000L;
 
   private ObservableList<String> contents;
   private Configuration config;
@@ -124,11 +124,10 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
         } else {
           delayedHide(DEFAULT_DELAY_TIME);
         }
-        log(Log.ERROR, "VisibilityChangeEvent");
       }
     });
     // hide after 1000 ms
-    delayedHide(3000L);
+    delayedHide(LARGE_DELAY_TIME);
   }
 
   @Override public View.OnClickListener clickListener() {
@@ -144,6 +143,7 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
       BusManager.remove(callback);
       callback = null;
     }
+    clearHideAndShow();
   }
 
   @Override public ViewPager.OnPageChangeListener changeListener() {
@@ -154,6 +154,11 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
         }
       }
     };
+  }
+
+  @Override public void registerCallback() {
+    clearHideAndShow();
+    delayedHide(LARGE_DELAY_TIME);
   }
 
   @Override protected String getClassTag() {

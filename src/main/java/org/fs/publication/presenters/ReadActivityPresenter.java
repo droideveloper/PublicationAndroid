@@ -22,4 +22,5 @@ import org.fs.common.IPresenter;
 public interface ReadActivityPresenter extends IPresenter {
   ViewPager.OnPageChangeListener changeListener();
   View.OnClickListener clickListener();
+  void registerCallback();
 }
