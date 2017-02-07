@@ -17,7 +17,7 @@ package org.fs.publication.commons;
 
 public final class SystemJS {
 
-  public final static String loaded = "javascript:(function() {\n"
+  public final static String loaded = "javascript:function() {\n"
       + "  // forEach polyfill\n"
       + "  if (!Array.prototype.forEach) {\n"
       + "    Array.prototype.forEach = function(iterator) {\n"
@@ -50,5 +50,5 @@ public final class SystemJS {
       + "      }\n"
       + "    }\n"
       + "  });\n"
-      + "}());";
+      + "};";
 }

@@ -120,7 +120,7 @@ public class ContentFragmentPresenterImp extends AbstractPresenter<ContentFragme
     return new WebChromeClient() {
 
       @Override public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-        log(Log.INFO, consoleMessage.message());
+        //log(Log.INFO, consoleMessage.message());
         return BuildConfig.DEBUG;
       }
 

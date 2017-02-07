@@ -158,11 +158,6 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
     };
   }
 
-  @Override public void registerCallback() {
-    clearHideAndShow();
-    delayedHide(LARGE_DELAY_TIME);
-  }
-
   @Override protected String getClassTag() {
     return ReadActivityPresenterImp.class.getSimpleName();
   }

@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseIntArray;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
@@ -129,7 +128,7 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
     return new WebChromeClient() {
 
       @Override public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-        log(Log.INFO, consoleMessage.message());
+        //log(Log.INFO, consoleMessage.message());
         return BuildConfig.DEBUG;
       }
     };
