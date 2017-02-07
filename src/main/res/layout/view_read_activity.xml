@@ -51,9 +51,4 @@
     android:visibility="invisible"
     style="@style/Widget.AppCompat.ProgressBar" />
 
-  <org.fs.publication.widgets.GestureLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true" />
-
 </FrameLayout>

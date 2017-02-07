@@ -15,9 +15,6 @@
  */
 package org.fs.publication.views;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -30,6 +27,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import javax.inject.Inject;
@@ -38,7 +37,7 @@ import org.fs.core.AbstractActivity;
 import org.fs.core.AbstractFragment;
 import org.fs.publication.BuildConfig;
 import org.fs.publication.R;
-import org.fs.publication.commons.SimpleAnimatorListener;
+import org.fs.publication.commons.SimpleAnimationListener;
 import org.fs.publication.commons.components.DaggerActivityComponent;
 import org.fs.publication.commons.modules.ActivityModule;
 import org.fs.publication.presenters.ReadActivityPresenter;
@@ -116,43 +115,64 @@ public class ReadActivity extends AbstractActivity<ReadActivityPresenter>
 
   @Override public void hideNavigation() {
     clearAnimations();
-    // translateY from 0 to Height
-    ObjectAnimator hideToolbar = ObjectAnimator.ofFloat(toolbar, "translateY", toolbar.getTranslationY(), -1.0f * toolbar.getHeight());
-    ObjectAnimator hideLayout = ObjectAnimator.ofFloat(layout, "translateY", layout.getTranslationY(), 1.0f * layout.getHeight());
-    // hide
-    AnimatorSet hideAnim = new AnimatorSet();
-    hideAnim.setDuration(300L);
-    hideAnim.setInterpolator(new FancyInterpolator());
-    hideAnim.playTogether(hideToolbar, hideLayout);
-    hideAnim.addListener(new SimpleAnimatorListener() {
-      @Override public void onAnimationEnd(Animator animation) {
+    // toolbar
+    Animation hideToolbarAnim = AnimationUtils.loadAnimation(getContext(), R.anim.top_out);
+    hideToolbarAnim.setDuration(300L);
+    hideToolbarAnim.setInterpolator(new FancyInterpolator());
+    hideToolbarAnim.setAnimationListener(new SimpleAnimationListener() {
+      @Override public void onAnimationEnd(Animation animation) {
         if (isAvailable()) {
           toolbar.setVisibility(View.INVISIBLE);
+        }
+      }
+    });
+    toolbar.setAnimation(hideToolbarAnim);
+    // navigation
+    Animation hideMenuAnim = AnimationUtils.loadAnimation(getContext(), R.anim.bottom_out);
+    hideMenuAnim.setDuration(300L);
+    hideMenuAnim.setInterpolator(new FancyInterpolator());
+    hideMenuAnim.setAnimationListener(new SimpleAnimationListener() {
+      @Override public void onAnimationEnd(Animation animation) {
+        if (isAvailable()) {
           layout.setVisibility(View.INVISIBLE);
         }
       }
     });
-    hideAnim.start();
+    layout.setAnimation(hideMenuAnim);
+    // start
+    hideToolbarAnim.start();
+    hideMenuAnim.start();
   }
 
   @Override public void showNavigation() {
     clearAnimations();
-    // translateY from Height to 0
-    ObjectAnimator showToolbar = ObjectAnimator.ofFloat(toolbar, "translateY", -1.0f * toolbar.getHeight(), 0.0f);
-    ObjectAnimator showLayout = ObjectAnimator.ofFloat(layout, "translateY", 1.0f * layout.getHeight(), 0.0f);
-    // show
-    AnimatorSet showAnim = new AnimatorSet();
-    showAnim.setDuration(300L);
-    showAnim.setInterpolator(new FancyInterpolator());
-    showAnim.playTogether(showToolbar, showLayout);
-    showAnim.addListener(new SimpleAnimatorListener() {
-      @Override public void onAnimationStart(Animator animation) {
+    // toolbar
+    Animation showToolbarAnim = AnimationUtils.loadAnimation(getContext(), R.anim.top_in);
+    showToolbarAnim.setDuration(300L);
+    showToolbarAnim.setInterpolator(new FancyInterpolator());
+    showToolbarAnim.setAnimationListener(new SimpleAnimationListener() {
+      @Override public void onAnimationStart(Animation animation) {
         if (isAvailable()) {
           toolbar.setVisibility(View.VISIBLE);
+        }
+      }
+    });
+    toolbar.setAnimation(showToolbarAnim);
+    // navigation
+    Animation showMenuAnim = AnimationUtils.loadAnimation(getContext(), R.anim.bottom_in);
+    showMenuAnim.setDuration(300L);
+    showMenuAnim.setInterpolator(new FancyInterpolator());
+    showMenuAnim.setAnimationListener(new SimpleAnimationListener() {
+      @Override public void onAnimationStart(Animation animation) {
+        if (isAvailable()) {
           layout.setVisibility(View.VISIBLE);
         }
       }
     });
+    layout.setAnimation(showMenuAnim);
+    // start
+    showToolbarAnim.start();
+    showMenuAnim.start();
   }
 
   @Override public void showProgress() {

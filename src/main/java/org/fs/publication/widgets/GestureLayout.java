@@ -1,5 +1,5 @@
 /*
- * Publication Copyright (C) 2017 Fatih.
+ * BakerPublicationAndroid Copyright (C) 2017 Fatih.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,47 +15,58 @@
  */
 package org.fs.publication.widgets;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import org.fs.common.BusManager;
 import org.fs.publication.entities.events.VisibilityChange;
 
 public class GestureLayout extends FrameLayout {
 
-  private final GestureDetector gestureDetector;
+  private final GestureDetector detector;
+  private View view;
 
   public GestureLayout(Context context) {
     super(context);
-    gestureDetector = new GestureDetector(context, new GestureListener());
+    detector = new GestureDetector(context, callback);
   }
 
   public GestureLayout(Context context, AttributeSet attrs) {
     super(context, attrs);
-    gestureDetector = new GestureDetector(context, new GestureListener());
+    detector = new GestureDetector(context, callback);
   }
 
   public GestureLayout(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
-    gestureDetector = new GestureDetector(context, new GestureListener());
+    detector = new GestureDetector(context, callback);
   }
 
-  @TargetApi(Build.VERSION_CODES.N_MR1)
-  public GestureLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-    super(context, attrs, defStyleAttr, defStyleRes);
-    gestureDetector = new GestureDetector(context, new GestureListener());
+  @Override protected void onAttachedToWindow() {
+    super.onAttachedToWindow();
+    ViewGroup parent = (ViewGroup) getParent();
+    int z = parent.getChildCount();
+    for (int i = 0; i < z; i++) {
+      View view = parent.getChildAt(i);
+      if (view instanceof WebView) {
+        this.view = view;
+        break;
+      }
+    }
   }
 
   @Override public boolean onTouchEvent(MotionEvent event) {
-    gestureDetector.onTouchEvent(event);
-    return super.onTouchEvent(event);
+    if (view != null) {
+      view.onTouchEvent(event);
+    }
+    return detector.onTouchEvent(event);
   }
 
-  private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+  private final GestureDetector.SimpleOnGestureListener callback = new GestureDetector.SimpleOnGestureListener() {
 
     @Override public boolean onDown(MotionEvent e) {
       return true;
@@ -65,5 +76,5 @@ public class GestureLayout extends FrameLayout {
       BusManager.send(new VisibilityChange());
       return true;
     }
-  }
+  };
 }

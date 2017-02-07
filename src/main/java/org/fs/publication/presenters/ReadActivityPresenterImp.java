@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import java8.util.stream.Collectors;
 import java8.util.stream.StreamSupport;
@@ -123,10 +124,11 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
         } else {
           delayedHide(DEFAULT_DELAY_TIME);
         }
+        log(Log.ERROR, "VisibilityChangeEvent");
       }
     });
     // hide after 1000 ms
-    //delayedHide(1000L);
+    delayedHide(3000L);
   }
 
   @Override public View.OnClickListener clickListener() {

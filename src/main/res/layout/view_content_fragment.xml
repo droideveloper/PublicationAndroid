@@ -29,6 +29,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
 
+  <org.fs.publication.widgets.GestureLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+
   <ProgressBar
     android:id="@+id/viewProgress"
     android:layout_gravity="center"

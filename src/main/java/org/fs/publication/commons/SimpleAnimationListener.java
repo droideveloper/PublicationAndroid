@@ -1,5 +1,5 @@
 /*
- * Publication Copyright (C) 2017 Fatih.
+ * BakerPublicationAndroid Copyright (C) 2017 Fatih.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,11 @@
  */
 package org.fs.publication.commons;
 
-import android.animation.Animator;
+import android.view.animation.Animation;
 
-public class SimpleAnimatorListener implements Animator.AnimatorListener {
+public class SimpleAnimationListener implements Animation.AnimationListener {
 
-  @Override public void onAnimationStart(Animator animation)  { }
-  @Override public void onAnimationEnd(Animator animation)    { }
-  @Override public void onAnimationCancel(Animator animation) { }
-  @Override public void onAnimationRepeat(Animator animation) { }
+  @Override public void onAnimationStart(Animation animation) { }
+  @Override public void onAnimationEnd(Animation animation) { }
+  @Override public void onAnimationRepeat(Animation animation) { }
 }
