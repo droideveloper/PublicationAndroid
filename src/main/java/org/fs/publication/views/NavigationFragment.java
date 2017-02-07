@@ -119,7 +119,7 @@ public class NavigationFragment extends AbstractFragment<NavigationFragmentPrese
     }
   }
 
-  @Override public void addJavaScriptBridge(NavigationFragmentPresenterImp reference, String key) {
+  @Override public void addJavaScriptBridge(NavigationFragmentPresenterImp.AndroidBridge reference, String key) {
     // TODO use javascript bridge only with if you are publishing this app for lv 17 or more
     menuView.addJavascriptInterface(reference, key);
   }

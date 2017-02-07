@@ -52,7 +52,7 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
   private final static String SECURE_WEB_AUTHORITY  = "https://";
   private final static String LOCAL_AUTHORITY       = "file://";
 
-  private final static String KEY_BRIDGE            = "bridge";
+  private final static String KEY_BRIDGE            = "AndroidBridge";
 
   private SparseIntArray        positions;
   private ArrayList<String>     contents;
@@ -70,7 +70,7 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
 
   @Override public void onCreate() {
     view.setup();
-    view.addJavaScriptBridge(this, KEY_BRIDGE);
+    view.addJavaScriptBridge(new AndroidBridge(density, view, positions, contents), KEY_BRIDGE);
   }
 
   @Override public void restoreState(Bundle restoreState) {
@@ -151,35 +151,9 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
 
       @Override public void onPageFinished(WebView v, String url) {
         // this ensures it loaded once
-        if (!url.startsWith("javascript:")) {
-          v.loadUrl(SystemJS.loaded);
-        }
-        if (scrollX != 0) {
-          view.scrollX(scrollX);
-        }
+        v.loadUrl(SystemJS.loaded);
       }
     };
-  }
-
-  @JavascriptInterface public void boundsOfPage(final float width, final float height) {
-    ThreadManager.runOnUiThread(() -> {
-      if (view.isAvailable()) {
-        view.update(Math.round(density * width), Math.round(density * height));
-      }
-    });
-  }
-
-  @JavascriptInterface public void indexOfUri(final float left, final String uri) {
-    ThreadManager.runOnUiThread(() -> {
-      if (view.isAvailable()) {
-        for (int i = 0, z = contents.size(); i < z; i++) {
-          if (uri.equals(contents.get(i))) {
-            positions.append(i, Math.round(left * density));
-            break;
-          }
-        }
-      }
-    });
   }
 
   @Override protected String getClassTag() {
@@ -219,5 +193,39 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
       return true;
     }
     return false;
+  }
+
+  public static class AndroidBridge {
+
+    private final ArrayList<String> contents;
+    private final SparseIntArray positions;
+    private final NavigationFragmentView view;
+    private final float density;
+
+    public AndroidBridge(float density, NavigationFragmentView view, SparseIntArray positions, ArrayList<String> contents) {
+      this.density = density;
+      this.view = view;
+      this.positions = positions;
+      this.contents = contents;
+    }
+
+    @JavascriptInterface public void onLoadNavigation(final float width, final float height) {
+      ThreadManager.runOnUiThread(() -> {
+        if (view.isAvailable()) {
+          view.update(Math.round(density * width), Math.round(density * height));
+        }
+      });
+    }
+
+    @JavascriptInterface public void onUpdateContent(final float left, final String uri) {
+      if (view.isAvailable()) {
+        for (int i = 0, z = contents.size(); i < z; i++) {
+          if (uri.equals(contents.get(i))) {
+            positions.append(i, Math.round(left * density));
+            break;
+          }
+        }
+      }
+    }
   }
 }

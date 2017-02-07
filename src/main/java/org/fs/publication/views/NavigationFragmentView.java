@@ -27,7 +27,7 @@ public interface NavigationFragmentView extends IView {
   void loadUri(String uri);
   boolean shouldLoadUri(String uri);
 
-  void addJavaScriptBridge(NavigationFragmentPresenterImp reference, String key);
+  void addJavaScriptBridge(NavigationFragmentPresenterImp.AndroidBridge reference, String key);
 
   void update(int width, int height);
 }
