@@ -69,10 +69,8 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
   }
 
   @Override public void onCreate() {
-    if (view.isAvailable()) {
-      view.setup();
-      view.addJavaScriptBridge(this, KEY_BRIDGE);
-    }
+    view.setup();
+    view.addJavaScriptBridge(this, KEY_BRIDGE);
   }
 
   @Override public void restoreState(Bundle restoreState) {
@@ -164,16 +162,24 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
   }
 
   @JavascriptInterface public void boundsOfPage(final float width, final float height) {
-    ThreadManager.runOnUiThread(() -> view.update(Math.round(density * width), Math.round(density * height)));
+    ThreadManager.runOnUiThread(() -> {
+      if (view.isAvailable()) {
+        view.update(Math.round(density * width), Math.round(density * height));
+      }
+    });
   }
 
   @JavascriptInterface public void indexOfUri(final float left, final String uri) {
-    for (int i = 0, z = contents.size(); i < z; i++) {
-      if (uri.equals(contents.get(i))) {
-        positions.append(i, Math.round(left * density));
-        break;
+    ThreadManager.runOnUiThread(() -> {
+      if (view.isAvailable()) {
+        for (int i = 0, z = contents.size(); i < z; i++) {
+          if (uri.equals(contents.get(i))) {
+            positions.append(i, Math.round(left * density));
+            break;
+          }
+        }
       }
-    }
+    });
   }
 
   @Override protected String getClassTag() {
