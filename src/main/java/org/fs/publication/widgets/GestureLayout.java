@@ -28,26 +28,26 @@ import org.fs.publication.entities.events.VisibilityChange;
 
 public class GestureLayout extends FrameLayout {
 
-  private final GestureDetector detector;
+  private GestureDetector detector;
   private View view;
 
   public GestureLayout(Context context) {
     super(context);
-    detector = new GestureDetector(context, callback);
   }
 
   public GestureLayout(Context context, AttributeSet attrs) {
     super(context, attrs);
-    detector = new GestureDetector(context, callback);
   }
 
   public GestureLayout(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
-    detector = new GestureDetector(context, callback);
   }
 
   @Override protected void onAttachedToWindow() {
     super.onAttachedToWindow();
+
+    detector = new GestureDetector(getContext(), new GestureListener());
+
     ViewGroup parent = (ViewGroup) getParent();
     int z = parent.getChildCount();
     for (int i = 0; i < z; i++) {
@@ -59,14 +59,20 @@ public class GestureLayout extends FrameLayout {
     }
   }
 
+  @Override protected void onDetachedFromWindow() {
+    super.onDetachedFromWindow();
+    view = null;
+    detector = null;
+  }
+
   @Override public boolean onTouchEvent(MotionEvent event) {
     if (view != null) {
       view.onTouchEvent(event);
     }
-    return detector.onTouchEvent(event);
+    return detector != null ? detector.onTouchEvent(event) : super.onTouchEvent(event);
   }
 
-  private final GestureDetector.SimpleOnGestureListener callback = new GestureDetector.SimpleOnGestureListener() {
+  private class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
     @Override public boolean onDown(MotionEvent e) {
       return true;

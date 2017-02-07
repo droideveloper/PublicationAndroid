@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Locale;
 import javax.inject.Inject;
 import org.fs.anim.FancyInterpolator;
 import org.fs.core.AbstractFragment;
@@ -135,11 +133,6 @@ public class NavigationFragment extends AbstractFragment<NavigationFragmentPrese
     layoutParams.height = height;
     // force redraw
     menuView.requestLayout();
-    // log data
-    log(Log.ERROR,
-        String.format(Locale.ENGLISH,
-            "width: %d, height: %d",
-            width, height));
   }
 
   @Override public void onResume() {

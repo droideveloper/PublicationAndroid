@@ -17,10 +17,19 @@ package org.fs.publication.commons;
 
 public final class SystemJS {
 
-  public final static String loaded = "javascript:function() {\n"
-      + "  // forEach polyfill\n"
+  public final static String loaded = "javascript:(function() {\n"
+      + "  // forEach polyfill for Array\n"
       + "  if (!Array.prototype.forEach) {\n"
       + "    Array.prototype.forEach = function(iterator) {\n"
+      + "      var self = this || [];\n"
+      + "      for(var index = 0, z = self.length; index < z; index++) {\n"
+      + "        iterator(self[index], index, self);\n"
+      + "      }\n"
+      + "    };\n"
+      + "  }\n"
+      + "  // forEach polyfill for HTMLCollection\n"
+      + "  if (!HTMLCollection.prototype.forEach) {\n"
+      + "    HTMLCollection.prototype.forEach = function(iterator) {\n"
       + "      var self = this || [];\n"
       + "      for(var index = 0, z = self.length; index < z; index++) {\n"
       + "        iterator(self[index], index, self);\n"
@@ -43,12 +52,12 @@ public final class SystemJS {
       + "  var collection = document.body.getElementsByTagName(\"a\") || [];\n"
       + "  collection.forEach(function(entry, index) {\n"
       + "    var uri = entry.href || \"\";\n"
-      + "    if (uri.startsWith(\"file://\")) {\n"
-      + "      var rect = entry.getBoundingClientRect();\n"
+      + "    if (uri.startsWith(\"file:\")) {\n"
+      + "      var xrect = entry.getBoundingClientRect();\n"
       + "      if (bridge) {\n"
-      + "        bridge.indexOfUri(rect.left, uri);\n"
+      + "        bridge.indexOfUri(xrect.left, uri);\n"
       + "      }\n"
       + "    }\n"
       + "  });\n"
-      + "};";
+      + "});";
 }

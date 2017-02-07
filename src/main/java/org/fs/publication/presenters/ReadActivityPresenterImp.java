@@ -94,8 +94,6 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
             view.newView(R.id.navigation, NavigationFragment.newInstance(config.index(), config.contents()));
           }
         }
-        // TODO set index.html or index.htm out of collection as single form
-        // book.json does not contain it all the time so not in contents array is understandable
         // if anything as html file will be our content of the pages.
         if (Collections.isNullOrEmpty(contents)) {
           contents.addAll(StreamSupport.stream(config.contents())

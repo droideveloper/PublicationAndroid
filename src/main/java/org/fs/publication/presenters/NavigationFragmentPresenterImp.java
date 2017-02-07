@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
@@ -28,7 +29,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import java.util.ArrayList;
-import java.util.Locale;
 import org.fs.common.AbstractPresenter;
 import org.fs.common.BusManager;
 import org.fs.common.ThreadManager;
@@ -128,7 +128,7 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
     return new WebChromeClient() {
 
       @Override public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-        //log(Log.INFO, consoleMessage.message());
+        log(Log.INFO, consoleMessage.message());
         return BuildConfig.DEBUG;
       }
     };
@@ -152,7 +152,10 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
       }
 
       @Override public void onPageFinished(WebView v, String url) {
-        v.loadUrl(SystemJS.loaded);
+        // this ensures it loaded once
+        if (!url.startsWith("javascript:")) {
+          v.loadUrl(SystemJS.loaded);
+        }
         if (scrollX != 0) {
           view.scrollX(scrollX);
         }
@@ -161,13 +164,12 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
   }
 
   @JavascriptInterface public void boundsOfPage(final float width, final float height) {
-    log(String.format(Locale.ENGLISH, "width: %f height: %f", width, height));
     ThreadManager.runOnUiThread(() -> view.update(Math.round(density * width), Math.round(density * height)));
   }
 
   @JavascriptInterface public void indexOfUri(final float left, final String uri) {
     for (int i = 0, z = contents.size(); i < z; i++) {
-      if (uri.contains(contents.get(i))) {
+      if (uri.equals(contents.get(i))) {
         positions.append(i, Math.round(left * density));
         break;
       }
