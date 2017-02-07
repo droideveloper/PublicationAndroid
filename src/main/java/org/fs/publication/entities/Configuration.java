@@ -25,6 +25,7 @@ import org.fs.util.Objects;
 public final class Configuration extends AbstractEntity {
 
   private String            title;
+  private String            index;
   private ArrayList<String> contents;
 
   public Configuration() {/*default constructor*/}
@@ -36,6 +37,10 @@ public final class Configuration extends AbstractEntity {
     return title;
   }
 
+  public String index() { return index; }
+
+  public void index(String index) { this.index = index; }
+
   public ArrayList<String> contents() {
     return contents;
   }
@@ -44,6 +49,10 @@ public final class Configuration extends AbstractEntity {
     boolean hasTitle = input.readInt() == 1;
     if (hasTitle) {
       title = input.readString();
+    }
+    boolean hasIndex = input.readInt() == 1;
+    if (hasIndex) {
+      index = input.readString();
     }
     boolean hasContents = input.readInt() == 1;
     if (hasContents) {
@@ -57,6 +66,11 @@ public final class Configuration extends AbstractEntity {
     out.writeInt(hasTitle ? 1 : 0);
     if (hasTitle) {
       out.writeString(title);
+    }
+    boolean hasIndex = !Objects.isNullOrEmpty(index);
+    out.writeInt(hasIndex ? 1 : 0);
+    if (hasIndex) {
+      out.writeString(index);
     }
     boolean hasContents = !Collections.isNullOrEmpty(contents);
     out.writeInt(hasContents ? 1 : 0);

@@ -28,7 +28,7 @@ public final class Book extends AbstractEntity {
   private String info;
   private Date   date;
   private String cover;
-  private String uri;
+  private String url;
 
   public Book() {/*default constructor*/}
   private Book(Parcel input) {
@@ -55,8 +55,8 @@ public final class Book extends AbstractEntity {
     return cover;
   }
 
-  public String uri() {
-    return uri;
+  public String url() {
+    return url;
   }
 
   @Override protected void readParcel(Parcel input) {
@@ -80,9 +80,9 @@ public final class Book extends AbstractEntity {
     if (hasCover) {
       cover = input.readString();
     }
-    boolean hasUri = input.readInt() == 1;
-    if (hasUri) {
-      uri = input.readString();
+    boolean hasUrl = input.readInt() == 1;
+    if (hasUrl) {
+      url = input.readString();
     }
   }
 
@@ -112,10 +112,10 @@ public final class Book extends AbstractEntity {
     if (hasCover) {
       out.writeString(cover);
     }
-    boolean hasUri = !Objects.isNullOrEmpty(uri);
-    out.writeInt(hasUri ? 1 : 0);
-    if (hasUri) {
-      out.writeString(uri);
+    boolean hasUrl = !Objects.isNullOrEmpty(url);
+    out.writeInt(hasUrl ? 1 : 0);
+    if (hasUrl) {
+      out.writeString(url);
     }
   }
 
