@@ -33,6 +33,7 @@ import org.fs.common.AbstractPresenter;
 import org.fs.common.BusManager;
 import org.fs.common.ThreadManager;
 import org.fs.publication.BuildConfig;
+import org.fs.publication.commons.SystemJS;
 import org.fs.publication.entities.events.PageSelectedByIndex;
 import org.fs.publication.entities.events.PageSelectedByUri;
 import org.fs.publication.views.NavigationFragmentView;
@@ -155,7 +156,7 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
       @Override public void onPageFinished(WebView v, String url) {
         if(view.isAvailable()) {
           if (loadJavaScript) {
-            v.loadUrl("file:///android_res/raw/systemjs.js");
+            v.loadUrl(SystemJS.loaded);
             loadJavaScript = false;
           }
           if (scrollX != 0) {
@@ -215,7 +216,7 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
       view.startActivity(intent);
       return true;
     } else if (uri.startsWith(LOCAL_AUTHORITY)) {
-      uri = uri.replace(LOCAL_AUTHORITY, "file:/");
+      uri = uri.replace(LOCAL_AUTHORITY, "file:");
       BusManager.send(new PageSelectedByUri(uri));
       return true;
     }

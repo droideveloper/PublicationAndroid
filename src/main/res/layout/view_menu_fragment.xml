@@ -23,8 +23,8 @@
   android:layout_height="wrap_content"
   android:fitsSystemWindows="true"
   android:background="@color/colorPrimaryDarkText"
-  tools:ignore="WebViewLayout"
-  android:padding="5dp">
+  android:paddingTop="1dp"
+  tools:ignore="WebViewLayout">
 
   <!--
         lint complains about wrap_content value for layout_height

@@ -19,7 +19,6 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
 import org.fs.common.IView;
 import org.fs.core.AbstractFragment;
-import org.fs.util.ObservableList;
 
 public interface ReadActivityView extends IView {
   void setup();
@@ -30,7 +29,6 @@ public interface ReadActivityView extends IView {
   <V extends AbstractFragment<?>> void newView(@IdRes int layout, V view);
 
   FragmentManager fragmentManager();
-  ObservableList<String> contents();
 
   void hideNavigation();
   void showNavigation();

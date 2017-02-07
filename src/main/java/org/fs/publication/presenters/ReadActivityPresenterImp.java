@@ -55,9 +55,9 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
   private int pageIndex;
   private Subscription  callback;
 
-  public ReadActivityPresenterImp(ReadActivityView view) {
+  public ReadActivityPresenterImp(ReadActivityView view, ObservableList<String> contents) {
     super(view);
-    contents = view.contents();
+    this.contents = contents;
   }
 
   @Override public void restoreState(Bundle restoreState) {
@@ -126,7 +126,7 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
       }
     });
     // hide after 1000 ms
-    delayedHide(1000L);
+    //delayedHide(1000L);
   }
 
   @Override public View.OnClickListener clickListener() {

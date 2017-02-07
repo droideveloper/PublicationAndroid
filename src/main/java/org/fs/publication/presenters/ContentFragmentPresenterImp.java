@@ -159,13 +159,14 @@ public class ContentFragmentPresenterImp extends AbstractPresenter<ContentFragme
   }
 
   private boolean overrideUri(String uri) {
+    log(Log.ERROR, uri);
     if(uri.startsWith(WEB_AUTHORITY) || uri.startsWith(SECURE_WEB_AUTHORITY)) {
       Intent intent = new Intent(Intent.ACTION_VIEW);
       intent.setData(Uri.parse(uri));
       view.startActivity(intent);
       return true;
     } else if (uri.startsWith(LOCAL_AUTHORITY)) {
-      uri = uri.replace(LOCAL_AUTHORITY, "file:/");
+      uri = uri.replace(LOCAL_AUTHORITY, "file:");
       BusManager.send(new PageSelectedByUri(uri));
       return true;
     }

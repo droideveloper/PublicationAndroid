@@ -51,7 +51,8 @@ public class GestureLayout extends FrameLayout {
   }
 
   @Override public boolean onTouchEvent(MotionEvent event) {
-    return gestureDetector.onTouchEvent(event);
+    gestureDetector.onTouchEvent(event);
+    return super.onTouchEvent(event);
   }
 
   private class GestureListener extends GestureDetector.SimpleOnGestureListener {

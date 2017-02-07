@@ -43,7 +43,6 @@ import org.fs.publication.commons.components.DaggerActivityComponent;
 import org.fs.publication.commons.modules.ActivityModule;
 import org.fs.publication.presenters.ReadActivityPresenter;
 import org.fs.publication.views.adapters.ContentStateAdapter;
-import org.fs.util.ObservableList;
 import org.fs.util.ViewUtility;
 
 import static org.fs.publication.R.layout.view_read_activity;
@@ -53,7 +52,6 @@ public class ReadActivity extends AbstractActivity<ReadActivityPresenter>
 
   @Inject ReadActivityPresenter presenter;
   @Inject ContentStateAdapter   adapter;
-  @Inject ObservableList<String> contents;
 
   private Toolbar     toolbar;
   private ViewPager   viewPager;
@@ -190,9 +188,6 @@ public class ReadActivity extends AbstractActivity<ReadActivityPresenter>
     return getSupportFragmentManager();
   }
 
-  @Override public ObservableList<String> contents() {
-    return contents;
-  }
 
   @Override public int currentPageAt() {
     return viewPager != null ? viewPager.getCurrentItem() : 0;

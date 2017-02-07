@@ -38,13 +38,9 @@ public class ActivityModule {
     this.contents = new ObservableList<>();
   }
 
-  @PerActivity @Provides public ObservableList<String> dataSet() {
-    return contents;
-  }
-
   @PerActivity @Provides public ReadActivityPresenter readActivityPresenter() {
     if (view instanceof ReadActivityView) {
-      return new ReadActivityPresenterImp((ReadActivityView) view);
+      return new ReadActivityPresenterImp((ReadActivityView) view, contents);
     }
     throw new AndroidException(
         String.format(Locale.ENGLISH,
@@ -52,10 +48,10 @@ public class ActivityModule {
             view.getClass().getSimpleName()));
   }
 
-  @PerActivity @Provides public ContentStateAdapter contentStateAdapter(ObservableList<String> dataSet) {
+  @PerActivity @Provides public ContentStateAdapter contentStateAdapter() {
     if (view instanceof ReadActivityView) {
       ReadActivityView v = (ReadActivityView) view;
-      return new ContentStateAdapter(v.fragmentManager(), dataSet);
+      return new ContentStateAdapter(v.fragmentManager(), contents);
     }
     throw new AndroidException(
         String.format(Locale.ENGLISH,

@@ -51,7 +51,6 @@
     android:visibility="invisible"
     style="@style/Widget.AppCompat.ProgressBar" />
 
-  <!-- this view instance for show and hide -->
   <org.fs.publication.widgets.GestureLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
