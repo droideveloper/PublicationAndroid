@@ -1,5 +1,5 @@
 /*
- * BakerPublicationAndroid Copyright (C) 2017 Fatih.
+ * Publication Copyright (C) 2017 Fatih.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import android.view.animation.Animation;
 
 public class SimpleAnimationListener implements Animation.AnimationListener {
 
-  @Override public void onAnimationStart(Animation animation) { }
-  @Override public void onAnimationEnd(Animation animation) { }
-  @Override public void onAnimationRepeat(Animation animation) { }
+  @Override public void onAnimationStart(Animation animation)   { }
+  @Override public void onAnimationEnd(Animation animation)     { }
+  @Override public void onAnimationRepeat(Animation animation)  { }
 }
