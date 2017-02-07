@@ -221,7 +221,7 @@ public class ReadActivity extends AbstractActivity<ReadActivityPresenter>
 
   @Override public void finish() {
     super.finish();
-    overridePendingTransition(R.anim.translate_right_in, R.anim.scale_out);
+    overridePendingTransition(R.anim.scale_in, R.anim.translate_right_out);
   }
 
   @Override public void setup() {

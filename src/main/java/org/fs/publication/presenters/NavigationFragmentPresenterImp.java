@@ -195,6 +195,7 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
     return false;
   }
 
+  // JavaScriptInterface
   public static class AndroidBridge {
 
     private final ArrayList<String> contents;
