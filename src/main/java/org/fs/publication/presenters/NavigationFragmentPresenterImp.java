@@ -29,6 +29,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import java.util.ArrayList;
+import java.util.Locale;
 import org.fs.common.AbstractPresenter;
 import org.fs.common.BusManager;
 import org.fs.common.ThreadManager;
@@ -137,8 +138,6 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
   @Override public WebViewClient client() {
     return new WebViewClient() {
 
-      private boolean loadJavaScript = true;
-
       @Override public boolean shouldOverrideUrlLoading(WebView v, WebResourceRequest request) {
         if (view.isAvailable()) {
           return shouldOverrideRequest(request);
@@ -154,25 +153,17 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
       }
 
       @Override public void onPageFinished(WebView v, String url) {
-        if(view.isAvailable()) {
-          if (loadJavaScript) {
-            v.loadUrl(SystemJS.loaded);
-            loadJavaScript = false;
-          }
-          if (scrollX != 0) {
-            view.scrollX(scrollX);
-          }
+        v.loadUrl(SystemJS.loaded);
+        if (scrollX != 0) {
+          view.scrollX(scrollX);
         }
       }
     };
   }
 
   @JavascriptInterface public void boundsOfPage(final float width, final float height) {
-    ThreadManager.runOnUiThread(() -> {
-      if (view.isAvailable()) {
-        view.update(Math.round(density * width), Math.round(density * height));
-      }
-    });
+    log(String.format(Locale.ENGLISH, "width: %f height: %f", width, height));
+    ThreadManager.runOnUiThread(() -> view.update(Math.round(density * width), Math.round(density * height)));
   }
 
   @JavascriptInterface public void indexOfUri(final float left, final String uri) {

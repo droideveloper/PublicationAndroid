@@ -126,8 +126,10 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
         }
       }
     });
-    // hide after 1000 ms
-    delayedHide(LARGE_DELAY_TIME);
+    // hide after 3000 ms if navigation visible
+    if (!view.isDisplayNavigation()) {
+      delayedHide(LARGE_DELAY_TIME);
+    }
   }
 
   @Override public View.OnClickListener clickListener() {
