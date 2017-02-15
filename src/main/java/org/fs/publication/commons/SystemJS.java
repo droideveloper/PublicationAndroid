@@ -35,7 +35,7 @@ public final class SystemJS {
     + "    if (uri.startsWith('file://')) {\n"
     + "      var xrect = entry.getBoundingClientRect();\n"
     + "      if (AndroidBridge) {\n"
-    + "        AndroidBridge.onUpdateContent(xrect.left, uri.replace('file://', 'file:'));\n"
+    + "        AndroidBridge.onUpdateContent(xrect.left + (xrect.width / 2), uri.replace('file://', 'file:'));\n"
     + "      }\n"
     + "    }\n"
     + "  }\n"

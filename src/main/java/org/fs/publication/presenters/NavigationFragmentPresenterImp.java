@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.webkit.ConsoleMessage;
@@ -60,17 +61,20 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
   private int                   scrollX;
 
   private float density;
+  private int halfWidth;
   private Subscription callback;
 
   public NavigationFragmentPresenterImp(NavigationFragmentView view) {
     super(view);
     positions = new SparseIntArray();
-    density = view.getContext().getResources().getDisplayMetrics().density;
+    DisplayMetrics metrics = view.getContext().getResources().getDisplayMetrics();
+    density = metrics.density;
+    halfWidth = metrics.widthPixels / 2;
   }
 
   @Override public void onCreate() {
     view.setup();
-    view.addJavaScriptBridge(new AndroidBridge(density, view, positions, contents), KEY_BRIDGE);
+    view.addJavaScriptBridge(new AndroidBridge(density, halfWidth, view, positions, contents), KEY_BRIDGE);
   }
 
   @Override public void restoreState(Bundle restoreState) {
@@ -166,10 +170,12 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
 
   private void selectedScrollX(int selected) {
     if (positions != null) {
-      if (positions.indexOfKey(selected) != -1) {
+      if (positions.indexOfKey(selected) >= 0) {
         final int scrollX = positions.get(selected);
         if (view.isAvailable()) {
-          view.scrollX(scrollX);
+          if (scrollX >= 0) {
+            view.scrollX(scrollX);
+          }
         }
       }
     }
@@ -202,12 +208,14 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
     private final SparseIntArray positions;
     private final NavigationFragmentView view;
     private final float density;
+    private final int halfWith;
 
-    public AndroidBridge(float density, NavigationFragmentView view, SparseIntArray positions, ArrayList<String> contents) {
+    public AndroidBridge(float density, int halfWith, NavigationFragmentView view, SparseIntArray positions, ArrayList<String> contents) {
       this.density = density;
       this.view = view;
       this.positions = positions;
       this.contents = contents;
+      this.halfWith = halfWith;
     }
 
     @JavascriptInterface public void onLoadNavigation(final float width, final float height) {
@@ -222,7 +230,7 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
       if (view.isAvailable()) {
         for (int i = 0, z = contents.size(); i < z; i++) {
           if (uri.equals(contents.get(i))) {
-            positions.append(i, Math.round(left * density));
+            positions.append(i, Math.round(left * density) - halfWith);
             break;
           }
         }
