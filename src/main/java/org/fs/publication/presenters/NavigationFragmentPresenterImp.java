@@ -29,6 +29,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import org.fs.common.AbstractPresenter;
 import org.fs.common.BusManager;
@@ -40,7 +41,6 @@ import org.fs.publication.entities.events.PageSelectedByUri;
 import org.fs.publication.views.NavigationFragmentView;
 import org.fs.util.Collections;
 import org.fs.util.Objects;
-import rx.Subscription;
 
 public class NavigationFragmentPresenterImp extends AbstractPresenter<NavigationFragmentView>
     implements NavigationFragmentPresenter {
@@ -62,7 +62,7 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
 
   private float density;
   private int halfWidth;
-  private Subscription callback;
+  private Disposable callback;
 
   public NavigationFragmentPresenterImp(NavigationFragmentView view) {
     super(view);

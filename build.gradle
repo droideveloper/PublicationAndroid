@@ -24,6 +24,10 @@ android {
     }
   }
 
+  retrolambda {
+    javaVersion JavaVersion.VERSION_1_7
+  }
+
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
@@ -36,7 +40,7 @@ dependencies {
 
   compile project(":core")
 
-  apt 'com.google.dagger:dagger-compiler:2.7'
-  compile 'com.google.dagger:dagger:2.7'
+  apt 'com.google.dagger:dagger-compiler:2.9'
+  compile 'com.google.dagger:dagger:2.9'
   provided 'javax.annotation:jsr250-api:1.0'
 }

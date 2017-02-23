@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import io.reactivex.disposables.Disposable;
 import java8.util.stream.Collectors;
 import java8.util.stream.StreamSupport;
 import org.fs.common.AbstractPresenter;
@@ -36,7 +37,6 @@ import org.fs.publication.views.ReadActivityView;
 import org.fs.util.Collections;
 import org.fs.util.Objects;
 import org.fs.util.ObservableList;
-import rx.Subscription;
 
 public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView>
     implements ReadActivityPresenter {
@@ -54,7 +54,7 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
   private Configuration config;
   private Handler thread = new Handler(Looper.getMainLooper());
   private int pageIndex;
-  private Subscription  callback;
+  private Disposable callback;
 
   public ReadActivityPresenterImp(ReadActivityView view, ObservableList<String> contents) {
     super(view);
