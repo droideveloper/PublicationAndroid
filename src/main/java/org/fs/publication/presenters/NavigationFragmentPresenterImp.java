@@ -55,14 +55,14 @@ public class NavigationFragmentPresenterImp extends AbstractPresenter<Navigation
 
   private final static String KEY_BRIDGE            = "AndroidBridge";
 
-  private SparseIntArray        positions;
-  private ArrayList<String>     contents;
-  private String                uri;
-  private int                   scrollX;
+  SparseIntArray        positions;
+  ArrayList<String>     contents;
+  String                uri;
+  int                   scrollX;
 
-  private float density;
-  private int halfWidth;
-  private Disposable callback;
+  float density;
+  int halfWidth;
+  Disposable callback;
 
   public NavigationFragmentPresenterImp(NavigationFragmentView view) {
     super(view);

@@ -45,8 +45,8 @@ public class ContentFragmentPresenterImp extends AbstractPresenter<ContentFragme
   private final static String SECURE_WEB_AUTHORITY  = "https://";
   private final static String LOCAL_AUTHORITY       = "file://";
 
-  private String uri;
-  private int    scrollY;
+  String uri;
+  int    scrollY;
 
   public ContentFragmentPresenterImp(ContentFragmentView view) {
     super(view);

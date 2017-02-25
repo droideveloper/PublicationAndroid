@@ -29,7 +29,7 @@ public final class Configuration extends AbstractEntity {
   private ArrayList<String> contents;
 
   public Configuration() {/*default constructor*/}
-  private Configuration(Parcel input) {
+  Configuration(Parcel input) {
     super(input);
   }
 

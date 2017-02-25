@@ -53,11 +53,11 @@ public class ReadActivity extends AbstractActivity<ReadActivityPresenter>
   @Inject ReadActivityPresenter presenter;
   @Inject ContentStateAdapter   adapter;
 
-  private Toolbar     toolbar;
-  private TextView    pagination;
-  private ViewPager   viewPager;
-  private FrameLayout layout;
-  private ProgressBar progress;
+  Toolbar     toolbar;
+  TextView    pagination;
+  ViewPager   viewPager;
+  FrameLayout layout;
+  ProgressBar progress;
 
   @Override public void onCreate(Bundle restoreState) {
     super.onCreate(restoreState);

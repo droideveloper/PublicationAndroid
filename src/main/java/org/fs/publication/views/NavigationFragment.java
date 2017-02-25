@@ -50,8 +50,8 @@ public class NavigationFragment extends AbstractFragment<NavigationFragmentPrese
     implements NavigationFragmentView {
 
   @Inject NavigationFragmentPresenter presenter;
-  private WeakReference<View>         viewReference;
-  private WebView                     menuView;
+  WeakReference<View>         viewReference;
+  WebView                     menuView;
 
   public static NavigationFragment newInstance(String uri, ArrayList<String> contents) {
     Bundle args = new Bundle();

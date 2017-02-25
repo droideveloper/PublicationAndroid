@@ -50,11 +50,11 @@ public class ReadActivityPresenterImp extends AbstractPresenter<ReadActivityView
   private final static long DEFAULT_DELAY_TIME = 500L;
   private final static long LARGE_DELAY_TIME   = 3000L;
 
-  private ObservableList<String> contents;
-  private Configuration config;
-  private Handler thread = new Handler(Looper.getMainLooper());
-  private int pageIndex;
-  private Disposable callback;
+  ObservableList<String> contents;
+  Configuration config;
+  Handler thread = new Handler(Looper.getMainLooper());
+  int pageIndex;
+  Disposable callback;
 
   public ReadActivityPresenterImp(ReadActivityView view, ObservableList<String> contents) {
     super(view);

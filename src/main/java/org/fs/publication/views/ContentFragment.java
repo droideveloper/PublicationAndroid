@@ -52,13 +52,13 @@ public class ContentFragment extends AbstractFragment<ContentFragmentPresenter>
     implements ContentFragmentView {
 
   @Inject ContentFragmentPresenter presenter;
-  private WeakReference<View>      viewReference;
+  WeakReference<View>      viewReference;
 
-  private WeakReference<View>                 customReference;
-  private WebChromeClient.CustomViewCallback  callback;
+  WeakReference<View>                 customReference;
+  WebChromeClient.CustomViewCallback  callback;
 
-  private WebView                  pageView;
-  private ProgressBar              progressView;
+  WebView                  pageView;
+  ProgressBar              progressView;
 
 
   private final static int INITIAL_SCALE = 1;

@@ -31,7 +31,7 @@ public final class Book extends AbstractEntity {
   private String url;
 
   public Book() {/*default constructor*/}
-  private Book(Parcel input) {
+  Book(Parcel input) {
     super(input);
   }
 
